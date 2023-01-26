@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
+import { CommentInput } from "@/components/comments/CommentInput";
 import { CommentList } from "@/components/comments/CommentList";
 import { NftTradeCard } from "@/components/feed/NftTradeCard";
 import { Header } from "@/components/header/Header";
@@ -41,8 +42,9 @@ export default function Home() {
           {transaction && (
             <>
               <NftTradeCard trade={transaction} />
-              <div className="mt-10">
-                <CommentList transactionHash={transaction?.transactionHash} />
+              <div className="mt-10 flex flex-col items-center w-full">
+                <CommentList />
+                <CommentInput transactionHash={transaction?.transactionHash} />
               </div>
             </>
           )}

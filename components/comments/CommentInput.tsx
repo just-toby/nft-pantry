@@ -48,10 +48,9 @@ export function CommentInput({ transactionHash }: { transactionHash: string }) {
           <Jazzicon seed={getTxHashWithPrefix(address)} />
         </div>
 
-        <textarea
-          className="max-w-[15rem]"
-          cols={40}
-          rows={1}
+        <input
+          type="text"
+          className="max-w-[15rem] outline-none mr-2"
           placeholder="Add a comment..."
           value={comment}
           onChange={(e) => {
