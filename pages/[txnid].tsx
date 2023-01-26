@@ -10,7 +10,7 @@ import styles from "@/styles/Home.module.css";
 import { filterNulls } from "@/util";
 import { getTxHashWithPrefix } from "@/util/addresses";
 import { ERC721TransferTopic } from "@/util/contractEvents";
-import { tw } from "@/util/tailwind";
+import { useSigner } from 'wagmi'
 
 type NFTTransfer = {
   from: string;
@@ -21,8 +21,11 @@ type NFTTransfer = {
 
 export function CommentForm() {
   const [comment, setComment] = useState("")
+  const { data: signer, isError, isLoading } = useSigner()
   const submitComment = async () => {
     console.log(comment);
+    console.log(signer);
+
     const resp = await fetch('https://api.sampleapis.com/beers/ale');
     const json = await resp.json();
     console.log(json);
