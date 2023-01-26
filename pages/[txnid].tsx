@@ -2,7 +2,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useNetwork, useWaitForTransaction } from "wagmi";
 
 import { Header } from "@/components/header/Header";
@@ -18,6 +18,16 @@ type NFTTransfer = {
   tokenId: string;
   contractAddress: string;
 };
+
+export function CommentForm() {
+  const [comment, setComment] = useState("")
+  return (
+    <div className="flex flex-col">
+      <input type="text" onChange={(e) => { setComment(e.target.value); }} />
+      <button>Submit Comment</button>
+    </div>
+  )
+}
 
 export default function Home() {
   const router = useRouter();
@@ -62,14 +72,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={tw(styles.main, "text-white")}>
+      <main className={styles.main}>
         <Header />
-
-        <div className="h-full w-full flex items-center justify-center text-4xl">
-          {txnid}
-        </div>
-        {/* feed */}
-        {/* todo */}
+          <div className="h-full w-full flex items-center justify-center text-4xl">
+              <CommentForm></CommentForm>
+          </div>
       </main>
     </>
   );
