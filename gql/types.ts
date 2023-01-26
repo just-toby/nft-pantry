@@ -97,6 +97,11 @@ export type Comment = {
   transactionHash: Scalars["String"];
 };
 
+export type CommentResponse = {
+  __typename?: "CommentResponse";
+  status: Scalars["Int"];
+};
+
 export type ContractInput = {
   address?: InputMaybe<Scalars["String"]>;
   chain: Chain;
@@ -163,6 +168,18 @@ export enum MarketSortableField {
   MarketCap = "MARKET_CAP",
   Volume = "VOLUME",
 }
+
+export type Mutation = {
+  __typename?: "Mutation";
+  addComment?: Maybe<CommentResponse>;
+};
+
+export type MutationAddCommentArgs = {
+  message: Scalars["String"];
+  signature: Scalars["String"];
+  signer: Scalars["String"];
+  transactionHash: Scalars["String"];
+};
 
 export type NftApproval = {
   __typename?: "NftApproval";
@@ -558,6 +575,7 @@ export type PortfolioTokensTotalDenominatedValueChangeArgs = {
 export type Query = {
   __typename?: "Query";
   assetActivities?: Maybe<Array<Maybe<AssetActivity>>>;
+  comments?: Maybe<Array<Comment>>;
   feed?: Maybe<Array<FeedItem>>;
   nftAssets?: Maybe<NftAssetConnection>;
   nftBalances?: Maybe<NftBalanceConnection>;
@@ -576,6 +594,11 @@ export type QueryAssetActivitiesArgs = {
   address: Scalars["String"];
   page?: InputMaybe<Scalars["Int"]>;
   pageSize?: InputMaybe<Scalars["Int"]>;
+};
+
+export type QueryCommentsArgs = {
+  limit?: InputMaybe<Scalars["Int"]>;
+  transactionHash: Scalars["String"];
 };
 
 export type QueryFeedArgs = {
