@@ -38,10 +38,11 @@ export function CommentForm() {
 }
 
 export function CommentsList({comments}: {comments: any[]}) {
+  const commentsHtml = comments.map((comment) => <div>{comment.name}</div>)
   return (
     <div>
       <h1>Comments List</h1>
-      { comments.length && <div>TEMP!</div> }
+      { comments.length && <div>{commentsHtml}</div> }
     </div>
   )
 }
