@@ -2,6 +2,7 @@ query FeedQuery($transactionHash: String) {
   feed(transactionHash: $transactionHash) {
     blockNumber
     buyerAddress
+    totalEth
     comments {
       address
       id

@@ -890,7 +890,7 @@ export type FeedQueryQueryVariables = Exact<{
 }>;
 
 
-export type FeedQueryQuery = { __typename?: 'Query', feed?: Array<{ __typename?: 'FeedItem', blockNumber: string, buyerAddress: string, id: string, marketplace?: string | null, sellerAddress: string, transactionHash: string, comments?: Array<{ __typename?: 'Comment', address: string, id: string, signature: string, text: string, timestamp: string, transactionHash: string }> | null, nfts: Array<{ __typename?: 'NftSale', address: string, collectionName?: string | null, id: string, imageUrl?: string | null, price?: string | null, quantity?: number | null, tokenId: string }>, parentComment?: { __typename?: 'Comment', address: string, id: string, signature: string, text: string, timestamp: string, transactionHash: string } | null }> | null };
+export type FeedQueryQuery = { __typename?: 'Query', feed?: Array<{ __typename?: 'FeedItem', blockNumber: string, buyerAddress: string, totalEth: string, id: string, marketplace?: string | null, sellerAddress: string, transactionHash: string, comments?: Array<{ __typename?: 'Comment', address: string, id: string, signature: string, text: string, timestamp: string, transactionHash: string }> | null, nfts: Array<{ __typename?: 'NftSale', address: string, collectionName?: string | null, id: string, imageUrl?: string | null, price?: string | null, quantity?: number | null, tokenId: string }>, parentComment?: { __typename?: 'Comment', address: string, id: string, signature: string, text: string, timestamp: string, transactionHash: string } | null }> | null };
 
 
 export const FeedQueryDocument = gql`
@@ -898,6 +898,7 @@ export const FeedQueryDocument = gql`
   feed(transactionHash: $transactionHash) {
     blockNumber
     buyerAddress
+    totalEth
     comments {
       address
       id
