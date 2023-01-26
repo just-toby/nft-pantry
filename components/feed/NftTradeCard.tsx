@@ -2,50 +2,47 @@ import { ethers } from "ethers";
 import dynamic from "next/dynamic";
 import Image from "next/image";
 
+import { DEFAULT_IMG_URL } from "@/constants";
+import { FeedItem } from "@/gql/types";
 import { shortenAddress } from "@/util/addresses";
 import { tw } from "@/util/tailwind";
-
-import { Trade } from "./Feed";
 
 const Jazzicon = dynamic(() => import("../jazzicon"), {
   ssr: false,
 });
 
-export function NftTradeCard({ trade }: { trade: Trade }) {
-  // todo: replace this with real NFT data queried from internal API
-  const imageUrl =
-    "https://cdn.center.app/1/0x8a90CAb2b38dba80c64b7734e58Ee1dB38B8992e/6169/711330c05dfadd89409896ebc879490d83bd10b64bdc3bf2493cd93f69ba4687.png";
-
-  const txDate = new Date(trade.timestamp);
-
+export function NftTradeCard({ trade }: { trade: FeedItem }) {
+  // todo: support multiple NFTs for a given transaction
+  const firstNft = trade.nfts[0];
   return (
     <div
       className={tw(
         "flex flex-col items-center justify-center",
-        "w-full rounded-lg"
+        "w-full rounded-2xl"
       )}
     >
       <div className="flex flex-row w-full mb-4 ">
-        <Jazzicon seed={trade.to} />
+        <Jazzicon seed={trade.buyerAddress} />
         <div className="flex flex-col ml-2">
-          <div className="text-xl">{shortenAddress(trade.to)}</div>
+          <div className="text-xl">{shortenAddress(trade.buyerAddress)}</div>
           <div className="text-sm text-gray-400">
-            {`${txDate.toLocaleDateString()} ${txDate.toLocaleTimeString()}`}
+            Block #{trade.blockNumber}
           </div>
         </div>
       </div>
       <div className="mb-4 font-bold w-full">
-        Bought #{trade.tokenId} for {ethers.utils.formatEther(trade.price)} ETH
+        Bought #{firstNft.tokenId} for{" "}
+        {ethers.utils.formatEther(firstNft.price ?? 0)} ETH
       </div>
       {trade.parentComment && (
-        <div className="w-full mb-4">{trade.parentComment}</div>
+        <div className="w-full mb-4">{trade.parentComment.text}</div>
       )}
       <Image
-        src={imageUrl}
+        src={firstNft.imageUrl ?? DEFAULT_IMG_URL}
         alt={"NFT image"}
         width="300"
         height="300"
-        className="rounded-lg"
+        className="rounded-2xl"
       />
     </div>
   );
