@@ -45,6 +45,7 @@
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-jazzicon": "^1.0.4",
+    "react-responsive-carousel": "^3.2.23",
     "swr": "^2.0.2",
     "tailwindcss": "^3.2.4",
     "ts-node": "^10.9.1",

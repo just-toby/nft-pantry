@@ -1,5 +1,5 @@
-query FeedQuery {
-  feed {
+query FeedQuery($transactionHash: String) {
+  feed(transactionHash: $transactionHash) {
     blockNumber
     buyerAddress
     comments {
