@@ -84,6 +84,7 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
         axis="horizontal"
         infiniteLoop
         statusFormatter={() => ""}
+        showThumbs={trade.nfts.length > 1}
         onClickItem={() => {
           router.push(`/${trade.transactionHash}`);
         }}
@@ -91,6 +92,7 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
         {trade.nfts?.map((nft) => {
           return (
             <Image
+              priority
               key={nft?.id}
               src={nft.imageUrl ?? DEFAULT_IMG_URL}
               alt={"NFT image"}

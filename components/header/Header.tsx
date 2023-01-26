@@ -16,7 +16,7 @@ export function Header() {
       )}
     >
       <Link href="/">
-        <Image src="/logo.svg" alt="Logo" width={32} height={32} />
+        <Image priority src="/logo.svg" alt="Logo" width={32} height={32} />
       </Link>
       <ConnectButton
         label="connect"

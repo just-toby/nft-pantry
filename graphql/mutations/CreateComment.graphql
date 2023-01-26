@@ -1,0 +1,15 @@
+mutation CreateComment(
+  $message: String!
+  $signature: String!
+  $signer: String!
+  $transactionHash: String!
+) {
+  addComment(
+    message: $message
+    signature: $signature
+    signer: $signer
+    transactionHash: $transactionHash
+  ) {
+    status
+  }
+}

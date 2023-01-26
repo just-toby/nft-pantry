@@ -14,6 +14,7 @@ module.exports = {
         primary: "#000",
         secondary: "hsla(227, 18%, 55%, 1)",
         outline: "hsla(225, 18%, 44%, 0.24)",
+        pink: "hsla(299, 100%, 72%, 1)",
       },
     },
   },

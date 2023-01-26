@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import useSWR from "swr";
 
+import { CommentList } from "@/components/comments/CommentList";
 import { NftTradeCard } from "@/components/feed/NftTradeCard";
 import { Header } from "@/components/header/Header";
 import { useGraphQLClientSdk } from "@/graphql/GraphQLContext";
@@ -36,8 +37,15 @@ export default function Home() {
       <main className={tw(styles.main, "text-primary")}>
         <Header />
 
-        <div className="mt-20 max-w-xl">
-          {transaction && <NftTradeCard trade={transaction} />}
+        <div className="my-20 px-20 max-w-xl flex flex-col items-center">
+          {transaction && (
+            <>
+              <NftTradeCard trade={transaction} />
+              <div className="mt-10">
+                <CommentList transactionHash={transaction?.transactionHash} />
+              </div>
+            </>
+          )}
         </div>
       </main>
     </>
