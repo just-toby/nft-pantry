@@ -19,7 +19,7 @@ export function Feed() {
         return (
           <>
             <NftTradeCard trade={t} key={t.id} />
-            <Rule verticalSpace={8} />
+            <Rule verticalSpace={8} key={t.id + "rule"} />
           </>
         );
       })}
