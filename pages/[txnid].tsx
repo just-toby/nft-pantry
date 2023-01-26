@@ -23,7 +23,7 @@ export function CommentForm() {
   const [comment, setComment] = useState("")
   const { data: signer } = useSigner()
   const { data: signature, isError, isLoading, isSuccess, signMessage } = useSignMessage({
-    message: 'gm wagmi frens',
+    message: comment,
   })
   const submitComment = async () => {
     console.log(comment);
