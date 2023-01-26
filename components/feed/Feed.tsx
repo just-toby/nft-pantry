@@ -58,7 +58,7 @@ export function Feed() {
     <div className="flex flex-col w-full items-center">
       {trades.map((t) => {
         return (
-          <div key={t.id} className="bg-gray-700 p-4 rounded-lg m-4">
+          <div key={t.id} className="border border-black p-4 rounded-lg my-4">
             <NftTradeCard trade={t} />
           </div>
         );
