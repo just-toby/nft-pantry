@@ -14,7 +14,7 @@ export function Feed() {
   });
 
   return (
-    <div className="flex flex-col w-full items-center px-8 max-w-xl">
+    <div className="flex flex-col w-full items-center px-4 max-w-xl">
       {trades?.map((t: FeedItem, index: number) => {
         return (
           <>
