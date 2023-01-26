@@ -29,7 +29,7 @@ export function Comment({ comment }: { comment: TxComment }) {
   }, [comment.timestamp]);
 
   return (
-    <div className="flex w-full flex-col md:flex-row md:items-center justify-between mb-8">
+    <div className="flex w-full flex-row items-center justify-between mb-8">
       <div className="flex flex-row items-center">
         <div>
           <Jazzicon seed={comment.address} />
@@ -38,12 +38,10 @@ export function Comment({ comment }: { comment: TxComment }) {
           <span className="text-secondary mb-1">
             {isNullOrEmpty(ens) ? shortenAddress(comment.address) : ens}
           </span>
-          <span className="hidden md:block">{commentText}</span>
-          <div className="text-secondary block md:hidden">{timestamp}</div>
+          <span className="block">{commentText}</span>
         </div>
       </div>
-      <div className="text-secondary hidden md:block">{timestamp}</div>
-      <span className="block md:hidden mt-4">{commentText}</span>
+      <div className="text-secondary">{timestamp}</div>
     </div>
   );
 }
