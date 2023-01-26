@@ -13,7 +13,7 @@ import { useGraphQLClientSdk } from "@/graphql/GraphQLContext";
 import styles from "@/styles/Home.module.css";
 import { tw } from "@/util/tailwind";
 
-export default function Home() {
+export default function TransactionDetailPage() {
   const router = useRouter();
   const { txnid } = router.query;
   const sdk = useGraphQLClientSdk();
@@ -39,7 +39,7 @@ export default function Home() {
       <main className={tw(styles.main, "text-primary")}>
         <Header />
 
-        <div className="my-20 px-20 max-w-4xl flex flex-col items-center">
+        <div className="my-24 px-4 max-w-4xl flex flex-col items-center">
           {transaction && (
             <>
               <NftTradeCard trade={transaction} />
