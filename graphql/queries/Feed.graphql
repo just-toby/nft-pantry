@@ -1,0 +1,35 @@
+query FeedQuery {
+  feed {
+    blockNumber
+    buyerAddress
+    comments {
+      address
+      id
+      signature
+      text
+      timestamp
+      transactionHash
+    }
+    id
+    marketplace
+    nfts {
+      address
+      collectionName
+      id
+      imageUrl
+      price
+      quantity
+      tokenId
+    }
+    parentComment {
+      address
+      id
+      signature
+      text
+      timestamp
+      transactionHash
+    }
+    sellerAddress
+    transactionHash
+  }
+}
