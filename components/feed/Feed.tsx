@@ -3,6 +3,7 @@ import useSWR from "swr";
 import { FeedItem } from "@/gql/types";
 import { useGraphQLClientSdk } from "@/graphql/GraphQLContext";
 
+import Rule from "../Rule";
 import { NftTradeCard } from "./NftTradeCard";
 
 export function Feed() {
@@ -13,12 +14,13 @@ export function Feed() {
   });
 
   return (
-    <div className="flex flex-col w-full items-center">
+    <div className="flex flex-col w-full items-center px-8">
       {trades?.map((t: FeedItem) => {
         return (
-          <div key={t.id} className="p-4 rounded-lg my-4">
-            <NftTradeCard trade={t} />
-          </div>
+          <>
+            <NftTradeCard trade={t} key={t.id} />
+            <Rule verticalSpace={8} />
+          </>
         );
       })}
     </div>

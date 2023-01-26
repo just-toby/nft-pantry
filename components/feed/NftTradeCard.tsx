@@ -26,10 +26,10 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
     <div
       className={tw(
         "flex flex-col items-center justify-center",
-        "w-full rounded-2xl"
+        "w-full rounded-2xl p-3 "
       )}
     >
-      <div className="flex flex-row w-full mb-4 ">
+      <div className="flex flex-row w-full mb-6 ">
         <Jazzicon seed={trade.buyerAddress} />
         <div className="flex flex-col ml-2">
           <a
@@ -44,18 +44,21 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
             href={getBlockURL(trade.blockNumber)}
             target="_blank"
             rel="noreferrer"
-            className="text-sm text-gray-400"
+            className="text-sm text-secondary"
           >
             Block #{trade.blockNumber}
           </a>
         </div>
       </div>
-      <div className="mb-4 font-bold w-full">
-        Bought #{firstNft.tokenId} for{" "}
-        {ethers.utils.formatEther(firstNft.price ?? 0)} ETH
+      <div className="w-full text-secondary">
+        Purchased{" "}
+        <span className="font-bold text-black">#{firstNft.tokenId}</span> for{" "}
+        <span className="font-bold text-black">
+          {ethers.utils.formatEther(firstNft.price ?? 0)} ETH
+        </span>
       </div>
       {trade.parentComment && (
-        <div className="w-full mb-4">{trade.parentComment.text}</div>
+        <div className="w-full mb-6 mt-2">{trade.parentComment.text}</div>
       )}
       <Link href={`/${trade.transactionHash}`}>
         <Image
