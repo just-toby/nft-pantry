@@ -9,7 +9,6 @@ export function Feed() {
   const sdk = useGraphQLClientSdk();
   const { data: trades } = useSWR("NftFeed", async () => {
     const result = await sdk?.FeedQuery();
-    console.log({ result });
     return result?.data?.feed;
   });
 

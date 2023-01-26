@@ -1,10 +1,12 @@
 import { ethers } from "ethers";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { useEnsName } from "wagmi";
 
 import { DEFAULT_IMG_URL } from "@/constants";
 import { FeedItem } from "@/gql/types";
-import { shortenAddress } from "@/util/addresses";
+import { isNullOrEmpty } from "@/util";
+import { getTxHashWithPrefix, shortenAddress } from "@/util/addresses";
 import { tw } from "@/util/tailwind";
 
 const Jazzicon = dynamic(() => import("../jazzicon"), {
@@ -14,6 +16,11 @@ const Jazzicon = dynamic(() => import("../jazzicon"), {
 export function NftTradeCard({ trade }: { trade: FeedItem }) {
   // todo: support multiple NFTs for a given transaction
   const firstNft = trade.nfts[0];
+
+  const { data: ens } = useEnsName({
+    address: getTxHashWithPrefix(trade.buyerAddress),
+  });
+
   return (
     <div
       className={tw(
@@ -24,7 +31,9 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
       <div className="flex flex-row w-full mb-4 ">
         <Jazzicon seed={trade.buyerAddress} />
         <div className="flex flex-col ml-2">
-          <div className="text-xl">{shortenAddress(trade.buyerAddress)}</div>
+          <div className="text-xl">
+            {isNullOrEmpty(ens) ? shortenAddress(trade.buyerAddress) : ens}
+          </div>
           <div className="text-sm text-gray-400">
             Block #{trade.blockNumber}
           </div>
