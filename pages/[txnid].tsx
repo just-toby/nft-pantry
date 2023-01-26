@@ -49,7 +49,7 @@ export default function Home() {
     );
   }, [data?.logs]);
 
-  // if (error || !isNFTTransfer) {
+  // if (error) {
   //   // todo: make an error state
   //   return <div>error</div>;
   // }
