@@ -9,7 +9,8 @@ export function Header() {
     <div
       className={tw(
         "fixed top-0 w-full p-4 justify-between flex items-center",
-        "bg-gradient-to-b from-white to-transparent"
+        "bg-gradient-to-b from-white to-transparent",
+        "z-50"
       )}
     >
       <Link href="/">

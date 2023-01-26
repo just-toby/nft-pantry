@@ -3,7 +3,7 @@ import "react-responsive-carousel/lib/styles/carousel.min.css";
 import { ethers } from "ethers";
 import dynamic from "next/dynamic";
 import Image from "next/image";
-import Link from "next/link";
+import { useRouter } from "next/router";
 import { useMemo } from "react";
 import { Carousel } from "react-responsive-carousel";
 import { useEnsName } from "wagmi";
@@ -19,7 +19,7 @@ const Jazzicon = dynamic(() => import("../jazzicon"), {
 });
 
 export function NftTradeCard({ trade }: { trade: FeedItem }) {
-  // todo: support multiple NFTs for a given transaction
+  const router = useRouter();
   const firstNft = trade.nfts[0];
 
   const { data: ens } = useEnsName({
@@ -70,27 +70,34 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
         </div>
       </div>
       <div className="w-full text-secondary">
-        Purchased {nftDescription}
-        for{" "}
-        <span className="font-bold text-black">
+        Purchased{nftDescription}
+        for
+        <span className="font-bold text-black mx-2">
           {ethers.utils.formatEther(trade.totalEth ?? 0)} ETH
         </span>
       </div>
       {trade.parentComment && (
         <div className="w-full mb-6 mt-2">{trade.parentComment.text}</div>
       )}
-      <Carousel axis="horizontal" infiniteLoop statusFormatter={() => ""}>
+      <Carousel
+        className="cursor-pointer"
+        axis="horizontal"
+        infiniteLoop
+        statusFormatter={() => ""}
+        onClickItem={() => {
+          router.push(`/${trade.transactionHash}`);
+        }}
+      >
         {trade.nfts?.map((nft) => {
           return (
-            <Link href={`/${trade.transactionHash}`} key={nft.id}>
-              <Image
-                src={nft.imageUrl ?? DEFAULT_IMG_URL}
-                alt={"NFT image"}
-                width="300"
-                height="300"
-                className="rounded-2xl"
-              />
-            </Link>
+            <Image
+              key={nft?.id}
+              src={nft.imageUrl ?? DEFAULT_IMG_URL}
+              alt={"NFT image"}
+              width="300"
+              height="300"
+              className="rounded-2xl"
+            />
           );
         })}
       </Carousel>
