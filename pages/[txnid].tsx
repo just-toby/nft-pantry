@@ -4,6 +4,7 @@ import Head from "next/head";
 import { useRouter } from "next/router";
 import { useMemo, useState, useEffect } from "react";
 import { useNetwork, useWaitForTransaction } from "wagmi";
+import useSWR from "swr";
 
 import { Header } from "@/components/header/Header";
 import styles from "@/styles/Home.module.css";
@@ -11,6 +12,7 @@ import { filterNulls } from "@/util";
 import { getTxHashWithPrefix } from "@/util/addresses";
 import { ERC721TransferTopic } from "@/util/contractEvents";
 import { useSigner, useSignMessage } from 'wagmi'
+import { useGraphQLClientSdk } from "@/graphql/GraphQLContext";
 
 type NFTTransfer = {
   from: string;
@@ -25,14 +27,15 @@ export function CommentForm() {
   const { data: signature, isError, isLoading, isSuccess, signMessage } = useSignMessage({
     message: comment,
   })
+
   const submitComment = async () => {
     signMessage();
   }
+
   return (
-    <div className="flex flex-col mt-16">
-      <input className="bg-neutral-300" type="text" onChange={(e) => { setComment(e.target.value); }} />
-      <button onClick={submitComment}>Submit Comment</button>
-      <div>Signature: { signature }</div>
+    <div className="flex mt-16">
+      <input className="bg-neutral-300" type="text" placeholder="Reply" onChange={(e) => { setComment(e.target.value); }} />
+      <button onClick={submitComment}>Send</button>
     </div>
   )
 }
@@ -57,6 +60,8 @@ export default function Home() {
     hash: getTxHashWithPrefix(txnid as string),
   });
   const [comments, setComments] = useState([])
+
+  const sdk = useGraphQLClientSdk();
 
   useEffect( () => {
     const fetchData = async () => {

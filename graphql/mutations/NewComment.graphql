@@ -1,0 +1,5 @@
+mutation NewComment {
+  addComment(message: "message", signature: "sig", signer: "signer", transactionHash: "hash") {
+    status
+  }
+}
