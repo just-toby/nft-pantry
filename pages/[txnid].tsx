@@ -2,7 +2,7 @@ import "@rainbow-me/rainbowkit/styles.css";
 
 import Head from "next/head";
 import { useRouter } from "next/router";
-import { useMemo, useState } from "react";
+import { useMemo, useState, useEffect } from "react";
 import { useNetwork, useWaitForTransaction } from "wagmi";
 
 import { Header } from "@/components/header/Header";
@@ -26,19 +26,22 @@ export function CommentForm() {
     message: comment,
   })
   const submitComment = async () => {
-    console.log(comment);
-    console.log(signer);
     signMessage();
-
-    const resp = await fetch('https://api.sampleapis.com/beers/ale');
-    const json = await resp.json();
-    console.log(json);
   }
   return (
     <div className="flex flex-col mt-16">
       <input className="bg-neutral-300" type="text" onChange={(e) => { setComment(e.target.value); }} />
       <button onClick={submitComment}>Submit Comment</button>
       <div>Signature: { signature }</div>
+    </div>
+  )
+}
+
+export function CommentsList({comments}: {comments: any[]}) {
+  return (
+    <div>
+      <h1>Comments List</h1>
+      { comments.length && <div>TEMP!</div> }
     </div>
   )
 }
@@ -52,6 +55,17 @@ export default function Home() {
     chainId: chain?.id,
     hash: getTxHashWithPrefix(txnid as string),
   });
+  const [comments, setComments] = useState([])
+
+  useEffect( () => {
+    const fetchData = async () => {
+      const resp = await fetch('https://api.sampleapis.com/beers/ale');
+      const json = await resp.json();
+      console.log(json);
+      setComments(json.slice(0, 10));
+    }
+    fetchData();
+  }, [])
 
   const transfers: NFTTransfer[] = useMemo(() => {
     return filterNulls(
@@ -86,10 +100,11 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <main className={styles.main}>
+      <div>
         <Header />
         <CommentForm></CommentForm>
-      </main>
+        <CommentsList comments={comments}></CommentsList>
+      </div>
     </>
   );
 }
