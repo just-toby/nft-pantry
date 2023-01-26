@@ -21,10 +21,16 @@ type NFTTransfer = {
 
 export function CommentForm() {
   const [comment, setComment] = useState("")
+  const submitComment = async () => {
+    console.log(comment);
+    const resp = await fetch('https://api.sampleapis.com/beers/ale');
+    const json = await resp.json();
+    console.log(json);
+  }
   return (
     <div className="flex flex-col">
       <input type="text" onChange={(e) => { setComment(e.target.value); }} />
-      <button>Submit Comment</button>
+      <button onClick={submitComment}>Submit Comment</button>
     </div>
   )
 }
