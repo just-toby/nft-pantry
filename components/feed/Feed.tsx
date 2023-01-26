@@ -14,12 +14,14 @@ export function Feed() {
   });
 
   return (
-    <div className="flex flex-col w-full items-center px-8">
-      {trades?.map((t: FeedItem) => {
+    <div className="flex flex-col w-full items-center px-8 max-w-xl">
+      {trades?.map((t: FeedItem, index: number) => {
         return (
           <>
-            <NftTradeCard trade={t} key={t.id} />
-            <Rule verticalSpace={8} key={t.id + "rule"} />
+            <NftTradeCard trade={t} key={t.id + index} />
+            <div className="w-full my-8" key={t.id + index + "rule"}>
+              <Rule />
+            </div>
           </>
         );
       })}
