@@ -10,7 +10,7 @@ import styles from "@/styles/Home.module.css";
 import { filterNulls } from "@/util";
 import { getTxHashWithPrefix } from "@/util/addresses";
 import { ERC721TransferTopic } from "@/util/contractEvents";
-import { useSigner } from 'wagmi'
+import { useSigner, useSignMessage } from 'wagmi'
 
 type NFTTransfer = {
   from: string;
@@ -21,10 +21,14 @@ type NFTTransfer = {
 
 export function CommentForm() {
   const [comment, setComment] = useState("")
-  const { data: signer, isError, isLoading } = useSigner()
+  const { data: signer } = useSigner()
+  const { data: signature, isError, isLoading, isSuccess, signMessage } = useSignMessage({
+    message: 'gm wagmi frens',
+  })
   const submitComment = async () => {
     console.log(comment);
     console.log(signer);
+    signMessage();
 
     const resp = await fetch('https://api.sampleapis.com/beers/ale');
     const json = await resp.json();
@@ -34,6 +38,7 @@ export function CommentForm() {
     <div className="flex flex-col mt-16">
       <input className="bg-neutral-300" type="text" onChange={(e) => { setComment(e.target.value); }} />
       <button onClick={submitComment}>Submit Comment</button>
+      <div>Signature: { signature }</div>
     </div>
   )
 }
