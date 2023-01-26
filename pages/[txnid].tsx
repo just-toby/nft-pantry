@@ -31,8 +31,8 @@ export function CommentForm() {
     console.log(json);
   }
   return (
-    <div className="flex flex-col">
-      <input type="text" onChange={(e) => { setComment(e.target.value); }} />
+    <div className="flex flex-col mt-16">
+      <input className="bg-neutral-300" type="text" onChange={(e) => { setComment(e.target.value); }} />
       <button onClick={submitComment}>Submit Comment</button>
     </div>
   )
@@ -83,9 +83,7 @@ export default function Home() {
       </Head>
       <main className={styles.main}>
         <Header />
-          <div className="h-full w-full flex items-center justify-center text-4xl">
-              <CommentForm></CommentForm>
-          </div>
+        <CommentForm></CommentForm>
       </main>
     </>
   );
