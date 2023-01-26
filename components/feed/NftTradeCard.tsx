@@ -73,7 +73,7 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
         Purchased {nftDescription}
         for{" "}
         <span className="font-bold text-black">
-          {ethers.utils.formatEther(firstNft.price ?? 0)} ETH
+          {ethers.utils.formatEther(trade.totalEth ?? 0)} ETH
         </span>
       </div>
       {trade.parentComment && (
