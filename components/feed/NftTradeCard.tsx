@@ -5,6 +5,7 @@ import dynamic from "next/dynamic";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { useMemo } from "react";
+import { toast } from "react-hot-toast";
 import { Carousel } from "react-responsive-carousel";
 import { useEnsName } from "wagmi";
 
@@ -72,10 +73,35 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
             </div>
           </div>
         </div>
-        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={() => {navigator.clipboard.writeText(window.location + trade.transactionHash)}} className="cursor-pointer">
-          <rect width="44" height="44" rx="22" fill="#F5F6FC"/>
-          <path d="M32.0007 12L21.0007 23" stroke="#7780A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-          <path d="M32.0007 12L25.0007 32L21.0007 23L12.0007 19L32.0007 12Z" stroke="#7780A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        <svg
+          width="44"
+          height="44"
+          viewBox="0 0 44 44"
+          fill="none"
+          xmlns="http://www.w3.org/2000/svg"
+          onClick={() => {
+            navigator.clipboard.writeText(
+              window.location + trade.transactionHash
+            );
+            toast.success("Link copied to clipboard");
+          }}
+          className="cursor-pointer"
+        >
+          <rect width="44" height="44" rx="22" fill="#F5F6FC" />
+          <path
+            d="M32.0007 12L21.0007 23"
+            stroke="#7780A0"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
+          <path
+            d="M32.0007 12L25.0007 32L21.0007 23L12.0007 19L32.0007 12Z"
+            stroke="#7780A0"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          />
         </svg>
       </div>
 
@@ -83,13 +109,14 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
         Purchased{nftDescription} for
         <span className="font-bold text-black mx-2">
           {ethers.utils.formatEther(trade.totalEth ?? 0)} ETH
-        </span> on <span className="font-bold text-black">{trade.marketplace}</span>
+        </span>{" "}
+        on <span className="font-bold text-black">{trade.marketplace}</span>
       </div>
       {trade.parentComment && (
-        <div className="w-full mb-6 mt-2">{trade.parentComment.text}</div>
+        <div className="w-full mt-2">{trade.parentComment.text}</div>
       )}
       <Carousel
-        className="cursor-pointer"
+        className="cursor-pointer mt-6"
         axis="horizontal"
         infiniteLoop
         statusFormatter={() => ""}
