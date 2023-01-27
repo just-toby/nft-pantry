@@ -2,6 +2,7 @@ import { verifyMessage } from "ethers/lib/utils.js";
 import dynamic from "next/dynamic";
 import { useMemo, useState } from "react";
 import { toast } from "react-hot-toast";
+import { mutate } from "swr";
 import { useAccount, useSignMessage } from "wagmi";
 
 import { useCreateCommentMutation } from "@/hooks/useCreateCommentMutation";
@@ -30,6 +31,7 @@ export function CommentInput({ transactionHash }: { transactionHash: string }) {
         transactionHash
       );
       if (result) {
+        mutate("TransactionDetails" + transactionHash);
         toast.success("Comment sent!");
       }
     },
