@@ -30,9 +30,7 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
   const nftDescription = useMemo(() => {
     if (trade.nfts?.length > 1) {
       return (
-        <span className="font-bold text-black mx-2">
-          {trade.nfts.length} NFTs
-        </span>
+        <span className="font-bold text-black">{trade.nfts.length} NFTs</span>
       );
     }
     return (
@@ -52,13 +50,20 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
       <div className="flex flex-row w-full mb-6 justify-between">
         <div>
           <div className="flex flex-row">
-            <Jazzicon seed={trade.buyerAddress} />
+            <a
+              className="hover:opacity-70 cursor-pointer"
+              href={getAddressURL(trade.buyerAddress)}
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Jazzicon seed={trade.buyerAddress} />
+            </a>
             <div className="flex flex-col ml-2">
               <a
                 href={getAddressURL(trade.buyerAddress)}
                 target="_blank"
-                className="text-xl"
                 rel="noreferrer"
+                className="text-xl hover:opacity-70"
               >
                 {isNullOrEmpty(ens) ? shortenAddress(trade.buyerAddress) : ens}
               </a>
@@ -66,7 +71,7 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
                 href={getBlockURL(trade.blockNumber)}
                 target="_blank"
                 rel="noreferrer"
-                className="text-sm text-secondary"
+                className="text-sm text-secondary hover:opacity-70"
               >
                 Block #{trade.blockNumber}
               </a>
@@ -85,7 +90,7 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
             );
             toast.success("Link copied to clipboard");
           }}
-          className="cursor-pointer"
+          className="cursor-pointer hover:opacity-80"
         >
           <rect width="44" height="44" rx="22" fill="#F5F6FC" />
           <path
@@ -106,8 +111,8 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
       </div>
 
       <div className="w-full text-secondary">
-        Purchased{nftDescription} for
-        <span className="font-bold text-black mx-2">
+        Purchased {nftDescription} for{" "}
+        <span className="font-bold text-black">
           {ethers.utils.formatEther(trade.totalEth ?? 0)} ETH
         </span>{" "}
         on <span className="font-bold text-black">{trade.marketplace}</span>
