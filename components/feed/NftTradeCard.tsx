@@ -48,27 +48,37 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
         "w-full rounded-2xl p-3 "
       )}
     >
-      <div className="flex flex-row w-full mb-6 ">
-        <Jazzicon seed={trade.buyerAddress} />
-        <div className="flex flex-col ml-2">
-          <a
-            href={getAddressURL(trade.buyerAddress)}
-            target="_blank"
-            className="text-xl"
-            rel="noreferrer"
-          >
-            {isNullOrEmpty(ens) ? shortenAddress(trade.buyerAddress) : ens}
-          </a>
-          <a
-            href={getBlockURL(trade.blockNumber)}
-            target="_blank"
-            rel="noreferrer"
-            className="text-sm text-secondary"
-          >
-            Block #{trade.blockNumber}
-          </a>
+      <div className="flex flex-row w-full mb-6 justify-between">
+        <div>
+          <div className="flex flex-row">
+            <Jazzicon seed={trade.buyerAddress} />
+            <div className="flex flex-col ml-2">
+              <a
+                href={getAddressURL(trade.buyerAddress)}
+                target="_blank"
+                className="text-xl"
+                rel="noreferrer"
+              >
+                {isNullOrEmpty(ens) ? shortenAddress(trade.buyerAddress) : ens}
+              </a>
+              <a
+                href={getBlockURL(trade.blockNumber)}
+                target="_blank"
+                rel="noreferrer"
+                className="text-sm text-secondary"
+              >
+                Block #{trade.blockNumber}
+              </a>
+            </div>
+          </div>
         </div>
+        <svg width="44" height="44" viewBox="0 0 44 44" fill="none" xmlns="http://www.w3.org/2000/svg" onClick={() => {navigator.clipboard.writeText(window.location + trade.transactionHash)}} className="cursor-pointer">
+          <rect width="44" height="44" rx="22" fill="#F5F6FC"/>
+          <path d="M32.0007 12L21.0007 23" stroke="#7780A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M32.0007 12L25.0007 32L21.0007 23L12.0007 19L32.0007 12Z" stroke="#7780A0" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+        </svg>
       </div>
+
       <div className="w-full text-secondary">
         Purchased{nftDescription} for
         <span className="font-bold text-black mx-2">
