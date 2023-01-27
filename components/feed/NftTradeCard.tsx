@@ -83,7 +83,7 @@ export function NftTradeCard({ trade }: { trade: FeedItem }) {
         Purchased{nftDescription} for
         <span className="font-bold text-black mx-2">
           {ethers.utils.formatEther(trade.totalEth ?? 0)} ETH
-        </span>
+        </span> on <span className="font-bold text-black">{trade.marketplace}</span>
       </div>
       {trade.parentComment && (
         <div className="w-full mb-6 mt-2">{trade.parentComment.text}</div>
